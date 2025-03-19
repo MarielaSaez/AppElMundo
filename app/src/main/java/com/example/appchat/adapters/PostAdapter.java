@@ -51,7 +51,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         Post post = posts.get(position);
         holder.tvTitulo.setText(post.getTitulo());
         holder.tvDescripcion.setText(post.getDescripcion());
-        //holder.deleteButton.setOnClickListener(v -> deleteListener.onDelete(post));
+
 
         if (post.getImagenes() != null) {
             if (post.getImagenes().size() > 0) {
@@ -95,7 +95,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     intent.putExtra("duracion", postDetail.getDuracion());
                     intent.putExtra("presupuesto", postDetail.getPresupuesto());
 
-                    // Datos del Usuario
+
                     User user = postDetail.getUser();
                     if (user != null) {
                         Log.d("Postadapter", user.getUsername());
@@ -107,11 +107,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                         Log.d("Postadapter", "User is null");
                     }
 
-                    // Lista de imágenes
+
                     ArrayList<String> imageUrls = new ArrayList<>(postDetail.getImagenes());
                     intent.putStringArrayListExtra("imagenes", imageUrls);
 
-                    // Lanza la actividad
+
                     context.startActivity(intent);
                 } else {
                     Log.e("PostDetail", "No se pudo obtener el detalle del post.");
@@ -125,7 +125,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-       // public View deleteButton;
+
         TextView tvTitulo, tvDescripcion;
         ImageView ivImage1, ivImage2, ivImage3;
 
@@ -136,7 +136,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             ivImage1 = itemView.findViewById(R.id.ivImage1);
             ivImage2 = itemView.findViewById(R.id.ivImage2);
             ivImage3 = itemView.findViewById(R.id.ivImage3);
-          //  deleteButton = itemView.findViewById(R.id.btnDelete);
+
         }
     }
 

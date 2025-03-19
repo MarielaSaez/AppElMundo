@@ -3,6 +3,7 @@ import com.example.appchat.R;
 import android.app.Application;
 
 
+import com.example.appchat.model.Chat;
 import com.example.appchat.model.Comentario;
 import com.example.appchat.model.Post;
 import com.example.appchat.model.User;
@@ -15,11 +16,12 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Enable Local Datastore.
+
         Parse.enableLocalDatastore(this);
         ParseObject.registerSubclass(Post.class);
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Comentario.class);
+        ParseObject.registerSubclass(Chat.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId(getString(R.string.back4app_app_id))
                 .clientKey(getString(R.string.back4app_client_key))

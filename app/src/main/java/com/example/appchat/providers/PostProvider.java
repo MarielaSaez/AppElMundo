@@ -17,6 +17,7 @@ import java.util.List;
 public class PostProvider {
 
     public LiveData<String> addPost(Post post) {
+
         MutableLiveData<String> result = new MutableLiveData<>();
         post.put("titulo", post.getTitulo());
         post.put("descripcion", post.getDescripcion());
@@ -31,6 +32,7 @@ public class PostProvider {
                 for (String url : post.getImagenes()) {
                     ParseObject imageObject = new ParseObject("Image");
                     imageObject.put("url", url);
+                    Log.e("Busco url", "url "+ url);
                     imageObject.saveInBackground(imgSaveError -> {
                         if (imgSaveError == null) {
                             relation.add(imageObject);

@@ -57,16 +57,16 @@ public class PerfilFragment extends Fragment {
     }
 
     private void setupViewModel() {
-        // Configurar RecyclerView
+
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
         postViewModel.getPostsByCurrentUser().observe(getViewLifecycleOwner(), posts -> {
             if (posts != null && !posts.isEmpty()) {
                 Log.d("PerfilFragment", "Número de posts: " + posts.size());
-                PostAdapter adapter = new PostAdapter(posts);
-                binding.recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                PostAdapter postAdapter = new PostAdapter(posts);
+                binding.recyclerView.setAdapter(postAdapter);
+                postAdapter.notifyDataSetChanged();
                 ((HomeActivity) requireActivity()).hideProgressBar();
             } else {
                 Log.d("PerfilFragment", "No hay posts disponibles.");
