@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView"
             android:layout_width="50dp"
@@ -23,30 +24,33 @@
             app:civ_border_width="2dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true" />
+
         <TextView
             android:id="@+id/nombreTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/circleImageView"
             android:layout_marginStart="12dp"
+            android:layout_alignParentTop="true"
             android:text="Nombre del usuario"
             android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/mensajeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/circleImageView"
             android:layout_marginStart="12dp"
-            android:layout_centerVertical="true"
+            android:layout_below="@id/nombreTextView"
             android:text="Mensaje de prueba"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:background="@drawable/chat_burbuja"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:maxWidth="280dp" />
 
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
+

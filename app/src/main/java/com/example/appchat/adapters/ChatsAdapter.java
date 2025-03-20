@@ -22,45 +22,46 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
     private final List<Chat> chatList;
     private final Context context;
     private final OnChatClickListener listener;
-
     public ChatsAdapter(Context context, List<Chat> chatList, OnChatClickListener listener) {
         this.context = context;
         this.chatList = chatList;
         this.listener = listener;
     }
-
     @NonNull
     @Override
     public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_chat, parent, false);
         return new ChatViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Chat chat = chatList.get(position);
-
-        Log.d("ChatAdapter", "Lista de Chat: " + chatList.size() + " - " + chat.getReceptor().getUsername());
-
-        // Cargar imagen de perfil
-        String fotoUrl = chat.getEmisor().getString("foto_perfil");
-        if (fotoUrl != null && !fotoUrl.isEmpty()) {
-            Picasso.get()
-                    .load(fotoUrl)
-                    .placeholder(R.drawable.ic_person)
-                    .error(R.drawable.ic_person)
-                    .into(holder.circleImageView);
-        } else {
-            holder.circleImageView.setImageResource(R.drawable.ic_person);
+        if (chat == null) {
+            Log.e("ChatAdapter", "Chat en la posición " + position + " es null");
+            return;
         }
-
-        // Asignar valores de texto
-        holder.nombreTextView.setText(chat.getEmisor().getString("nombre"));
-        holder.mensajeTextView.setText(chat.getMensaje());
-
-        // Manejar clics
+        if (chat.getReceptor() == null) {
+            Log.e("ChatAdapter", "El emisor del chat en la posición " + position + " es null");
+            holder.nombreTextView.setText("Usuario desconocido");
+            holder.circleImageView.setImageResource(R.drawable.ic_person);
+        } else {
+            Log.d("ChatAdapter", "Emisor: " + chat.getReceptor() .getUsername());
+            String fotoUrl = chat.getReceptor().getString("foto_perfil");
+            if (fotoUrl != null && !fotoUrl.isEmpty()) {
+                Picasso.get()
+                        .load(fotoUrl)
+                        .placeholder(R.drawable.ic_person)
+                        .error(R.drawable.ic_person)
+                        .into(holder.circleImageView);
+            } else {
+                holder.circleImageView.setImageResource(R.drawable.ic_person);
+            }
+            holder.nombreTextView.setText(chat.getReceptor().getUsername());
+        }
+        holder.mensajeTextView.setText(chat.getMensaje() != null ? chat.getMensaje() : "Mensaje no disponible");
         holder.itemView.setOnClickListener(v -> listener.onChatClick(chat));
     }
+
 
     @Override
     public int getItemCount() {
