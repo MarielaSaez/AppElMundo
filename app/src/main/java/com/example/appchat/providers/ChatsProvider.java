@@ -51,12 +51,10 @@ public class ChatsProvider {
         List<ParseQuery<Chat>> queries = new ArrayList<>();
         queries.add(queryEmisor);
         queries.add(queryReceptor);
-
         ParseQuery<Chat> mainQuery = ParseQuery.or(queries);
         mainQuery.include("emisor");
         mainQuery.include("receptor");
         mainQuery.orderByDescending("createdAt");
-
         mainQuery.findInBackground((mensajes, e) -> {
             Map<String, Chat> contactosMap = new HashMap<>();
 
@@ -73,8 +71,6 @@ public class ChatsProvider {
                     }
                 }
             }
-
-
             ParseQuery<ParseUser> usersQuery = ParseUser.getQuery();
             usersQuery.whereNotEqualTo("objectId", emisor);
             usersQuery.findInBackground((usuarios, error) -> {
@@ -90,8 +86,6 @@ public class ChatsProvider {
                             } else {
                                 Log.e("ChatError", "El usuario no está autenticado.");
                             }
-
-
                             chat.setReceptor(usuario);
                             chat.setMensaje("Sin conversación");
                             contactosMap.put(usuario.getObjectId(), chat);
